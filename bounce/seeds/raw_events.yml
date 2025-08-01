@@ -1,0 +1,20 @@
+version: 2
+
+seeds:
+  - name: raw_events
+    description: "Raw events data from the source system"
+    config:
+      +column_types:
+        event_time: varchar(30)
+    columns:
+      - name: event_id
+        data_tests:
+          - unique
+          - not_null
+      - name: event_time
+        data_tests:
+          - not_null
+      - name: revenue
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
