@@ -7,6 +7,7 @@ cleaned AS (
         event_id,
         user_id,
         session_id,
+        session,
         TO_TIMESTAMP_NTZ(REPLACE(event_time, ' UTC', '')) AS event_time,
         revenue,
         currency,

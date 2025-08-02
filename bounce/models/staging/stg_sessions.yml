@@ -8,6 +8,8 @@ models:
           expression: count(*)
           compare_model: ref('raw_events')
           compare_expression: count(distinct session_id)
+      - dbt_utils.expression_is_true:
+          expression: 'session_start <= session_end'
     columns:
       - name: session_id
         description: Unique identifier for the session
