@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: fct_events
+    description: "Fact model for events data"
+    data_tests:
+      - dbt_expectations.expect_table_aggregation_to_equal_other_table:
+          expression: count(*)
+          compare_model: ref('stg_events')
+    columns:
+      - name: event_id
+        description: Unique identifier for the event
+      - name: user_id
+        description: Identifier for the user associated with the event
+        data_tests:
+          - relationships:
+              to: ref('stg_users')
+              field: user_id
+      - name: session_id
+        description: Identifier for the session during which the event occurred
+        data_tests:
+          - relationships:
+              to: ref('stg_sessions')
+              field: session_id
+      - name: event_time
+        description: Timestamp of when the event occurred
+      - name: revenue
+        description: Revenue generated from the event
+      - name: currency
+        description: Currency in which the revenue is denominated
+      - name: utm_source
+        description: UTM source for tracking the origin of the event

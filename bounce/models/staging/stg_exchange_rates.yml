@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_exchange_rates
+    description: "Staging model for exchange rates data"
+    data_tests:
+      - dbt_expectations.expect_table_aggregation_to_equal_other_table:
+          expression: count(*)
+          compare_model: ref('exchange_rates')
+    columns:
+      - name: date
+        description: Date of the exchange rate
+      - name: currency
+        description: Currency code (e.g., USD, EUR)
+      - name: rate_to_usd
+        description: Exchange rate to USD for the given date and currency
+        data_tests:
+          - dbt_utils.expression_is_true:
+              expression: '= 1.0'
+              config:
+                where: "currency = 'USD'"

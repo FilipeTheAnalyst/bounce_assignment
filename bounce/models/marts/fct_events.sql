@@ -10,6 +10,7 @@ SELECT
     e.event_id,
     e.user_id,
     e.session_id,
+    s.session,
     e.event_time,
     e.revenue,
     e.currency,
