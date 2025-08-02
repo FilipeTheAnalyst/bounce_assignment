@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_sessions
+    description: "Staging model for sessions data"
+    data_tests:
+      - dbt_expectations.expect_table_aggregation_to_equal_other_table:
+          expression: count(*)
+          compare_model: ref('raw_events')
+          compare_expression: count(distinct session_id)
+    columns:
+      - name: session_id
+        description: Unique identifier for the session
+      - name: session_start
+        description: Timestamp of when the session started
+      - name: session_end
+        description: Timestamp of when the session ended
