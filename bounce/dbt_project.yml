@@ -15,13 +15,13 @@ seeds:
   # Builds seeds into '<your_schema_name>_raw'
   bounce_events:
     +schema: raw
-    
+
 models:
   bounce_events:
     # Materialize staging models as views, and marts as tables
-    staging:
+    1_staging:
       +schema: stage_bounce
       +materialized: view
-    marts:
+    2_marts:
       +schema: mart_bounce
       +materialized: table
