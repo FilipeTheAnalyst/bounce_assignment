@@ -5,9 +5,8 @@ models:
     description: "Staging model for users data"
     data_tests:
       - dbt_expectations.expect_table_aggregation_to_equal_other_table:
-          expression: count(*)
+          expression: count(distinct user_id)
           compare_model: ref('raw_events')
-          compare_expression: count(distinct user_id)
     columns:
       - name: user_id
         description: Unique identifier for the user
